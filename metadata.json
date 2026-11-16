@@ -1,0 +1,6 @@
+{
+  "name": "Rede Direta — Curso Introdutório de P2P",
+  "description": "Plataforma educacional interativa que ensina P2P (Peer-to-Peer) do zero ao uso seguro, com módulos progressivos, simuladores visuais, FAQ, quiz com certificado e mini-game 3D em Three.js.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
