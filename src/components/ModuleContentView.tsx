@@ -47,57 +47,70 @@ export const ModuleContentView: React.FC<ModuleContentViewProps> = ({
   return (
     <article className="space-y-8">
       {/* Cabeçalho do Módulo */}
-      <header className="border-b border-slate-200 pb-6">
-        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 tabular-nums">
-          <span>
-            Módulo {module.id} de {totalModules}
-          </span>
-          <span aria-hidden="true">·</span>
-          <span className="inline-flex items-center gap-1">
-            <Clock className="h-3.5 w-3.5" />
-            <span>{module.estimatedMinutes} min de leitura</span>
-          </span>
-          <span aria-hidden="true">·</span>
-          <span>Termos sublinhados abrem o glossário</span>
-          {isCompleted && (
-            <>
-              <span aria-hidden="true">·</span>
-              <span className="inline-flex items-center gap-1 font-semibold text-emerald-700">
-                <CheckCircle2 className="h-3.5 w-3.5" />
-                <span>Concluído</span>
-              </span>
-            </>
-          )}
+      <header
+        className={`border-b border-slate-200 pb-6 ${
+          module.imageUrl
+            ? 'grid grid-cols-1 gap-6 xl:grid-cols-12 xl:items-center'
+            : ''
+        }`}
+      >
+        <div className={module.imageUrl ? 'xl:col-span-7' : ''}>
+          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 tabular-nums">
+            <span>
+              Módulo {module.id} de {totalModules}
+            </span>
+            <span aria-hidden="true">·</span>
+            <span className="inline-flex items-center gap-1">
+              <Clock className="h-3.5 w-3.5" />
+              <span>{module.estimatedMinutes} min de leitura</span>
+            </span>
+            <span aria-hidden="true">·</span>
+            <span>Termos sublinhados abrem o glossário</span>
+            {isCompleted && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span className="inline-flex items-center gap-1 font-semibold text-emerald-700">
+                  <CheckCircle2 className="h-3.5 w-3.5" />
+                  <span>Concluído</span>
+                </span>
+              </>
+            )}
+          </div>
+
+          <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl headline-balance">
+            {module.title}
+          </h2>
+          <p className="mt-3 max-w-4xl text-base leading-relaxed text-slate-600">
+            <GlossaryHighlightedText
+              text={module.introduction}
+              onSelectTerm={onSelectGlossaryTerm}
+            />
+          </p>
         </div>
 
-        <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl headline-balance">
-          {module.title}
-        </h2>
-        <p className="mt-3 max-w-3xl text-base leading-relaxed text-slate-600">
-          <GlossaryHighlightedText
-            text={module.introduction}
-            onSelectTerm={onSelectGlossaryTerm}
-          />
-        </p>
-
         {module.imageUrl && (
-          <div className="mt-6 overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
+          <div className="xl:col-span-5 overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
             <img
               src={module.imageUrl}
               alt={module.imageAlt ?? module.title}
               referrerPolicy="no-referrer"
-              className="aspect-[16/9] max-h-[340px] w-full object-cover"
+              className="aspect-[16/9] max-h-[280px] w-full object-cover"
             />
           </div>
         )}
       </header>
 
       {/* Explicação Didática em Blocos */}
-      <div className="space-y-6">
-        {module.blocks.map((block) => (
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+        {module.blocks.map((block, idx) => {
+          const spanFull =
+            module.blocks.length % 2 === 1 && idx === module.blocks.length - 1;
+          return (
           <section
             key={block.heading}
-            className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6"
+            className={`rounded-xl border border-slate-200 bg-white p-5 sm:p-6 ${
+              spanFull ? 'xl:col-span-2' : ''
+            }`}
           >
             <h3 className="font-display text-lg font-bold text-slate-900">
               {block.heading}
@@ -162,7 +175,8 @@ export const ModuleContentView: React.FC<ModuleContentViewProps> = ({
               </div>
             )}
           </section>
-        ))}
+          );
+        })}
       </div>
 
       {/* Diagrama / Simulador Interativo do Módulo */}
@@ -206,7 +220,7 @@ export const ModuleContentView: React.FC<ModuleContentViewProps> = ({
           <BookCheck className="h-4 w-4" />
           <span>Resumo dos Principais Aprendizados</span>
         </div>
-        <ul className="mt-3 space-y-2 text-sm text-slate-200">
+        <ul className="mt-3 grid grid-cols-1 gap-3 text-sm text-slate-200 md:grid-cols-2">
           {module.summaryPoints.map((pt) => (
             <li key={pt} className="flex items-start gap-2.5">
               <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
@@ -226,7 +240,7 @@ export const ModuleContentView: React.FC<ModuleContentViewProps> = ({
           {module.reflection.prompt}
         </h3>
 
-        <div className="mt-4 space-y-2">
+        <div className="mt-4 grid grid-cols-1 gap-2.5 md:grid-cols-2">
           {module.reflection.options.map((option, idx) => {
             const isSelected = selectedReflection === idx;
             const isRight = idx === module.reflection.correctIndex;

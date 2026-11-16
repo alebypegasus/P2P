@@ -1648,7 +1648,7 @@ const GlossaryExplorer: React.FC = () => {
           Nenhum termo encontrado para "{query}". Tente outra palavra ou limpe o filtro.
         </p>
       ) : (
-        <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
+        <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
           {filtered.map((item) => (
             <div
               key={item.term}
@@ -1715,13 +1715,16 @@ const SafetyChecklistInteractive: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-4 space-y-2">
+      <div className="mt-4 grid grid-cols-1 gap-2.5 md:grid-cols-2">
         {habits.map((habit, idx) => {
           const isChecked = checked.includes(idx);
+          const spanFull = habits.length % 2 === 1 && idx === habits.length - 1;
           return (
             <label
               key={habit}
               className={`flex cursor-pointer items-start gap-3 rounded-lg border p-3 text-sm transition-colors ${
+                spanFull ? 'md:col-span-2' : ''
+              } ${
                 isChecked
                   ? 'border-emerald-300 bg-emerald-50/70 text-emerald-950'
                   : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'

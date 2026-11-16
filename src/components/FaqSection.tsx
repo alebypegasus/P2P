@@ -37,7 +37,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
   });
 
   return (
-    <section className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
+    <section className="w-full px-4 py-8 sm:px-6 lg:px-10">
       <div className="border-b border-slate-200 pb-6">
         <p className="text-xs font-medium text-sky-700">
           Dúvidas Frequentes · {FAQ_ITEMS.length} perguntas respondidas
@@ -45,7 +45,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
         <h2 className="mt-1.5 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl headline-balance">
           Perguntas e Respostas sobre P2P
         </h2>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
+        <p className="mt-2 max-w-4xl text-sm leading-relaxed text-slate-600 sm:text-base">
           Reunimos as principais dúvidas de quem está dando os primeiros passos.
           Clique em qualquer pergunta para ler a resposta direta e sem jargões.
         </p>
@@ -87,9 +87,9 @@ export const FaqSection: React.FC<FaqSectionProps> = ({
       </div>
 
       {/* Lista expansível */}
-      <div className="mt-6 space-y-2.5">
+      <div className="mt-6 grid grid-cols-1 items-start gap-3 lg:grid-cols-2">
         {filtered.length === 0 ? (
-          <div className="rounded-xl border border-slate-200 bg-white p-6 text-center text-sm text-slate-600">
+          <div className="lg:col-span-2 rounded-xl border border-slate-200 bg-white p-6 text-center text-sm text-slate-600">
             Nenhuma pergunta encontrada para "{search}".
           </div>
         ) : (

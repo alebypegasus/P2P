@@ -117,9 +117,10 @@ export const CertificateView: React.FC<CertificateViewProps> = ({
   };
 
   return (
-    <section className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
+    <section className="w-full px-4 py-8 sm:px-6 lg:px-10">
+      <div className="grid grid-cols-1 items-start gap-8 xl:grid-cols-12">
       {/* Mensagem de Parabéns e Ações */}
-      <div className="no-print rounded-xl border border-slate-200 bg-white p-6 sm:p-8">
+      <div className="no-print rounded-xl border border-slate-200 bg-white p-6 sm:p-8 xl:col-span-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-xs font-medium text-emerald-700">
@@ -128,7 +129,7 @@ export const CertificateView: React.FC<CertificateViewProps> = ({
             <h2 className="mt-1 text-2xl font-bold text-slate-900 sm:text-3xl">
               Parabéns por concluir o curso introdutório de P2P!
             </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
+            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
               Você agora conhece a diferença entre modelos centralizados e diretos,
               como funciona a custódia (Escrow), os principais sinais de golpe e os
               cuidados essenciais no Brasil.
@@ -234,7 +235,7 @@ export const CertificateView: React.FC<CertificateViewProps> = ({
       </div>
 
       {/* Pré-visualização do Certificado */}
-      <div className="print-only-certificate mt-6 rounded-xl border-2 border-slate-900 bg-white p-8 sm:p-10">
+      <div className="print-only-certificate rounded-xl border-2 border-slate-900 bg-white p-6 sm:p-8 xl:col-span-6">
         <div className="border border-slate-200 p-6 sm:p-8">
           <div className="flex items-center justify-between gap-4">
             <span className="text-xs font-semibold tracking-wide text-sky-700">
@@ -283,6 +284,7 @@ export const CertificateView: React.FC<CertificateViewProps> = ({
             não conferindo habilitação técnica oficial ou certificação profissional regulada.
           </p>
         </div>
+      </div>
       </div>
     </section>
   );

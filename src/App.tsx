@@ -105,7 +105,7 @@ export default function App() {
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
       {/* Top Bar Contract: 3 zones (Wordmark — 4 nav links — 1 primary CTA) */}
       <header className="no-print sticky top-0 z-30 border-b border-slate-200 bg-white/95">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-8 px-4 py-2.5 sm:py-3.5 sm:px-6">
+        <div className="flex w-full items-center justify-between gap-8 px-4 py-2.5 sm:px-6 sm:py-3.5 lg:px-10">
           <button
             type="button"
             onClick={() => {
@@ -241,8 +241,8 @@ export default function App() {
             {/* Hero Introdutório (apenas no Módulo 1 para não atrapalhar leitura avançada, ou compacto no topo) */}
             {activeModuleId === 1 && (
               <section className="border-b border-slate-200 bg-white">
-                <div className="mx-auto grid max-w-6xl grid-cols-1 items-stretch gap-8 px-4 py-8 sm:px-6 lg:grid-cols-12 lg:py-12">
-                  <div className="flex flex-col justify-center lg:col-span-6">
+                <div className="grid w-full grid-cols-1 items-stretch gap-8 px-4 py-8 sm:px-6 lg:grid-cols-12 lg:px-10 lg:py-10">
+                  <div className="flex flex-col justify-center lg:col-span-6 xl:col-span-5">
                     <p className="text-xs font-semibold text-sky-700">
                       Curso Introdutório Gratuito · Sem Jargões Técnicos
                     </p>
@@ -279,13 +279,13 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="lg:col-span-6">
+                  <div className="lg:col-span-6 xl:col-span-7">
                     <div className="h-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
                       <img
                         src="/src/assets/images/hero_p2p_network_1794850223284.jpg"
                         alt="Rede descentralizada de nós conectados diretamente por pontes luminosas representando arquitetura Peer-to-Peer"
                         referrerPolicy="no-referrer"
-                        className="h-full min-h-[220px] w-full object-cover"
+                        className="h-full min-h-[220px] max-h-[360px] w-full object-cover"
                       />
                     </div>
                   </div>
@@ -298,14 +298,14 @@ export default function App() {
               ref={courseSectionRef}
               className="border-b border-slate-200 bg-white"
             >
-              <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
+              <div className="flex w-full flex-wrap items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-10">
                 <div className="flex items-center gap-4 flex-1 min-w-[240px]">
                   <div className="text-xs font-semibold text-slate-700 whitespace-nowrap tabular-nums">
                     Progresso do Curso: {progressPercent}% ({completedModuleIds.length}/
                     {COURSE_MODULES.length})
                   </div>
                   <div
-                    className="h-2 flex-1 max-w-md overflow-hidden rounded-full bg-slate-200"
+                    className="h-2 flex-1 max-w-2xl overflow-hidden rounded-full bg-slate-200"
                     role="progressbar"
                     aria-valuenow={progressPercent}
                     aria-valuemin={0}
@@ -335,8 +335,8 @@ export default function App() {
             </div>
 
             {/* Layout 2 Colunas: Índice de Módulos + Conteúdo Didático */}
-            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 py-8 sm:px-6 lg:grid-cols-12">
-              <aside className="lg:col-span-4 xl:col-span-3">
+            <div className="flex w-full flex-col gap-8 px-4 py-8 sm:px-6 lg:flex-row lg:items-start lg:px-10">
+              <aside className="w-full shrink-0 lg:w-72 xl:w-[300px]">
                 <div className="sticky top-20 space-y-4">
                   {/* Seletor compacto no mobile */}
                   <div className="lg:hidden">
@@ -445,7 +445,7 @@ export default function App() {
                 </div>
               </aside>
 
-              <div className="lg:col-span-8 xl:col-span-9">
+              <div className="min-w-0 flex-1">
                 <ModuleContentView
                   module={activeModule}
                   totalModules={COURSE_MODULES.length}
@@ -502,7 +502,7 @@ export default function App() {
       />
 
       <footer className="no-print border-t border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-6 text-xs text-slate-500 sm:px-6">
+        <div className="flex w-full flex-wrap items-center justify-between gap-4 px-4 py-6 text-xs text-slate-500 sm:px-6 lg:px-10">
           <p>
             Rede Direta · Conteúdo estritamente educacional e informativo sobre
             Peer-to-Peer. Não constitui recomendação de investimento nem garante

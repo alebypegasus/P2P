@@ -65,7 +65,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({
   if (finished) {
     const feedback = formatPerformanceFeedback(evaluation.percentage);
     return (
-      <section className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
+      <section className="w-full px-4 py-8 sm:px-6 lg:px-10">
         <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8">
           <div className="flex flex-wrap items-start justify-between gap-4 border-b border-slate-100 pb-6">
             <div>
@@ -75,7 +75,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({
               <h2 className="mt-1 text-2xl font-bold text-slate-900 sm:text-3xl">
                 {feedback.title}
               </h2>
-              <p className="mt-2 max-w-2xl text-sm text-slate-600">
+              <p className="mt-2 max-w-4xl text-sm text-slate-600">
                 {feedback.subtitle}
               </p>
             </div>
@@ -149,7 +149,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({
             <h3 className="text-base font-semibold text-slate-900">
               Gabarito Comentado · Todas as {evaluation.totalQuestions} questões
             </h3>
-            <div className="mt-4 space-y-3">
+            <div className="mt-4 grid grid-cols-1 gap-3 lg:grid-cols-2">
               {QUIZ_QUESTIONS.map((q, idx) => {
                 const chosen = answers[q.id];
                 const isCorrect = chosen === q.correctIndex;
@@ -213,7 +213,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({
   const isCurrentCorrect = selectedOption === currentQuestion.correctIndex;
 
   return (
-    <section className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+    <section className="w-full px-4 py-8 sm:px-6 lg:px-10">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-xs font-medium text-sky-700">
@@ -244,22 +244,23 @@ export const QuizSection: React.FC<QuizSectionProps> = ({
         />
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-7">
-        <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
-          <span>
-            Nível:{' '}
-            <strong className="text-slate-900">
-              {currentQuestion.difficulty}
-            </strong>
-          </span>
-          <span>Referência: Módulo {currentQuestion.moduleRef}</span>
-        </div>
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-7 lg:col-span-8 xl:col-span-9">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+            <span>
+              Nível:{' '}
+              <strong className="text-slate-900">
+                {currentQuestion.difficulty}
+              </strong>
+            </span>
+            <span>Referência: Módulo {currentQuestion.moduleRef}</span>
+          </div>
 
-        <h3 className="mt-3 text-lg font-semibold leading-snug text-slate-900 sm:text-xl">
-          {currentQuestion.question}
-        </h3>
+          <h3 className="mt-3 text-lg font-semibold leading-snug text-slate-900 sm:text-xl">
+            {currentQuestion.question}
+          </h3>
 
-        <div className="mt-5 space-y-2.5">
+          <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-2">
           {currentQuestion.options.map((optionText, idx) => {
             const isSelected = selectedOption === idx;
             const isRight = idx === currentQuestion.correctIndex;
@@ -353,6 +354,65 @@ export const QuizSection: React.FC<QuizSectionProps> = ({
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>
+        </div>
+
+        <aside className="rounded-xl border border-slate-200 bg-white p-5 lg:col-span-4 xl:col-span-3">
+          <div className="flex items-center justify-between gap-2">
+            <h4 className="text-sm font-semibold text-slate-900">
+              Mapa das Questões
+            </h4>
+            <span className="font-mono text-xs text-slate-500 tabular-nums">
+              {answeredCount}/{totalQuestions}
+            </span>
+          </div>
+          <p className="mt-1 text-xs text-slate-500">
+            Acompanhe seu avanço pelos níveis Fácil, Intermediário e Avançado.
+          </p>
+
+          <div className="mt-4 grid grid-cols-6 gap-2">
+            {QUIZ_QUESTIONS.map((q, idx) => {
+              const ans = answers[q.id];
+              const answered = typeof ans === 'number';
+              const right = answered && ans === q.correctIndex;
+              const isCurrent = idx === currentIndex;
+              let boxClass = 'border-slate-200 bg-slate-50 text-slate-600';
+              if (answered) {
+                boxClass = right
+                  ? 'border-emerald-500 bg-emerald-50 text-emerald-800'
+                  : 'border-red-400 bg-red-50 text-red-800';
+              }
+              if (isCurrent) {
+                boxClass += ' ring-2 ring-sky-500 ring-offset-1';
+              }
+              return (
+                <button
+                  key={q.id}
+                  type="button"
+                  onClick={() => setCurrentIndex(idx)}
+                  aria-label={`Ir para questão ${idx + 1} (${q.difficulty})`}
+                  className={`flex h-9 items-center justify-center rounded-lg border font-mono text-xs font-semibold tabular-nums transition-colors ${boxClass}`}
+                >
+                  {idx + 1}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="mt-5 space-y-2 border-t border-slate-100 pt-4 text-xs text-slate-600">
+            <div className="flex items-center justify-between">
+              <span>Nível Fácil</span>
+              <span className="font-mono tabular-nums">Questões 1–6</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span>Nível Intermediário</span>
+              <span className="font-mono tabular-nums">Questões 7–12</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span>Nível Avançado</span>
+              <span className="font-mono tabular-nums">Questões 13–18</span>
+            </div>
+          </div>
+        </aside>
       </div>
     </section>
   );
